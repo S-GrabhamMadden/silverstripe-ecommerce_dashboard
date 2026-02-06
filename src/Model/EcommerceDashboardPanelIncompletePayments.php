@@ -40,8 +40,7 @@ class EcommerceDashboardPanelIncompletePayments extends EcommerceDashboardPanel
     protected function calculateOnDaysback($daysBack)
     {
         $allPayments = EcommercePayment::get()
-            ->where('"EcommercePayment"."LastEdited" > ( NOW() - INTERVAL ' . $daysBack . ' DAY )')
-        ;
+            ->where('"EcommercePayment"."LastEdited" > ( NOW() - INTERVAL ' . $daysBack . ' DAY )');
         $list = $allPayments->column('Status');
         $total = count($list);
         $totals = [];
@@ -61,18 +60,17 @@ class EcommerceDashboardPanelIncompletePayments extends EcommerceDashboardPanel
     protected function formatContentSection($daysBack, $data)
     {
         if ($daysBack > 1000) {
-            $html = '<h4 style="padding-top: 30px; clear: both;">From the beginning of time:</h4>';
+            $html = '<h3 style="padding-top: 30px; clear: both;">Last few years:</h3>';
         } else {
-            $html = '<h4>Last ' . $daysBack . ' days:</h4>';
+            $html = '<h3>Last ' . $daysBack . ' days:</h3>';
         }
-        $html .= '<dl>';
+        $html .= '<table><tbody>';
         foreach ($data['Totals'] as $name => $count) {
             $percentage = round($count / $data['Total'], 2) * 100;
             $html .= '
-            <dt>' . $name . '</dt>
-            <dd>' . $count . ' × = ' . $percentage . '%</dd>';
+            <tr><td>' . $name . '</td><td class="number">' . $count . '</td><td class="number">' . $percentage . '%</td></tr>';
         }
-
+        $html .= '</tbody></table>';
         return DBField::create_field(
             'HTMLText',
             $html

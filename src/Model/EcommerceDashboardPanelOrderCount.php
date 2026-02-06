@@ -59,10 +59,10 @@ class EcommerceDashboardPanelOrderCount extends EcommerceDashboardPanel
         $sum = 0;
         $itemCount = 0;
         $html = '
-            <dl>';
+            <table><tbody>';
         $html .= '
-                <dt>Count of orders</dt>
-                <dd>' . $count . '</dd>';
+                <tr><td>Count of orders</td>
+                <td class="number">' . $count . '</td></tr>';
         if ($count < $this->maxOrdersForLoop() && $count > 0) {
             foreach ($submittedOrders as $order) {
                 $sum += $order->getSubTotal();
@@ -70,35 +70,34 @@ class EcommerceDashboardPanelOrderCount extends EcommerceDashboardPanel
             }
             $sumDBField = DBField::create_field('Currency', $sum);
             $html .= '
-                    <dt>Sum of sub-totals</dt>
-                    <dd>' . $sumDBField->Nice() . '</dd>';
+                    <tr><td>Sum of sub-totals</td>
+                    <td class="number">' . $sumDBField->Nice() . '</td></tr>';
             $averagePerOrder = $sum / $count;
             $averagePerOrderDBField = DBField::create_field('Currency', $averagePerOrder);
             $html .= '
-                    <dt>Average sub-total per order</dt>
-                    <dd>' . $averagePerOrderDBField->Nice() . '</dd>';
+                    <tr><td>Average sub-total per order</td>
+                    <td class="number">' . $averagePerOrderDBField->Nice() . '</td></tr>';
             $html .= '
-                    <dt>Total count of items sold</dt>
-                    <dd>' . $itemCount . '</dd>';
+                    <tr><td>Total count of items sold</td>
+                    <td class="number">' . $itemCount . '</td></tr>';
             $itemCountPerOrder = round($itemCount / $count, 3);
             $html .= '
-                    <dt>Average items sold per order</dt>
-                    <dd>' . $itemCountPerOrder . '</dd>';
+                    <tr><td>Average items sold per order</td>
+                    <td class="number">' . $itemCountPerOrder . '</td></tr>';
             $costPerItem = $sum / $itemCount;
             $costPerItemDBField = DBField::create_field('Currency', $costPerItem);
             $html .= '
-                    <dt>Average cost per item</dt>
-                    <dd>' . $costPerItemDBField->Nice() . '</dd>';
+                    <tr><td>Average cost per item</td>
+                    <td class="number">' . $costPerItemDBField->Nice() . '</td></tr>';
         } elseif ($count >= $this->maxOrdersForLoop()) {
             $html .= '
-                    <dt>Sum of sub-totals</dt>
-                    <dd>Please reduce the number of orders to calculate the total.</dd>';
+                    <tr><td>Sum of sub-totals</td>
+                    <td>Please reduce the number of orders to calculate the total.</td></tr>';
         }
         //..
 
         $html .= '
-            </dl>';
-
+            </tbody></table>';
         return DBField::create_field(
             'HTMLText',
             $html

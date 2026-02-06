@@ -11,6 +11,7 @@ use SilverStripe\Forms\NumericField;
 use SilverStripe\Forms\ReadonlyField;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Security\Permission;
 use Sunnysideup\Ecommerce\Config\EcommerceConfig;
 use Sunnysideup\Ecommerce\Model\Extensions\EcommerceRole;
 use Sunnysideup\Ecommerce\Model\Order;
@@ -132,9 +133,9 @@ class EcommerceDashboardPanel extends DashboardPanel
     protected function submittedOrders($numberOfDaysBack = 0)
     {
         $orders = Order::get_datalist_of_orders_with_submit_record(true, false, true);
-
         return $orders
             ->exclude(['MemberID' => $this->excludedMembersArray()])
+            ->orderBy('"OrderStatusLog"."Created" DESC')
             ->where($this->daysBackWhereStatement($numberOfDaysBack))
         ;
     }
@@ -152,32 +153,18 @@ class EcommerceDashboardPanel extends DashboardPanel
         return $orders
             ->filter(['StatusID' => $lastStep->ID])
             ->exclude(['MemberID' => $this->excludedMembersArray()])
+            ->orderBy('"OrderStatusLog"."Created" DESC')
             ->where($this->daysBackWhereStatement($numberOfDaysBack))
         ;
     }
 
     /**
-     * @return array array of member IDs
+     * returns an array of member IDs that should be excluded from the dashboard.
+     * @return array
      */
-    protected function excludedMembersArray()
+    protected function excludedMembersArray(): array
     {
-        if (! count(self::$_excluded_members_array)) {
-            self::$_excluded_members_array = [-1 => -1];
-            $adminGroup = EcommerceRole::get_admin_group();
-            $assitantGroup = EcommerceRole::get_assistant_group();
-            if ($adminGroup) {
-                foreach ($adminGroup->Members() as $member) {
-                    self::$_excluded_members_array[$member->ID] = $member->ID;
-                }
-            }
-            if ($assitantGroup) {
-                foreach ($assitantGroup->Members() as $member) {
-                    self::$_excluded_members_array[$member->ID] = $member->ID;
-                }
-            }
-        }
-
-        return self::$_excluded_members_array;
+        return EcommerceRole::get_excluded_members_array();
     }
 
     /**
