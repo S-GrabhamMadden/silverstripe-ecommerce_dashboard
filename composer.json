@@ -7,6 +7,8 @@
     "CMS",
     "Silverstripe",
     "e-commerce",
+    "e-commerce dashboard",
+    "sales",
     "dashboard",
     "statistics",
     "sales",
@@ -21,10 +23,10 @@
     }
   ],
   "require": {
-    "sunnysideup/ecommerce": "*",
-    "i-lateral/silverstripe-dashboard": "*",
-    "sunnysideup/dashboardmods": "*",
-    "silverstripe/recipe-cms": "^4.4"
+    "sunnysideup/ecommerce": "dev-master",
+    "sunnysideup/dashboard": "dev-main",
+    "sunnysideup/dashboardmods": "dev-master",
+    "silverstripe/recipe-cms": "^4.0 || ^5.0"
   },
   "extra": {
     "expose": [

@@ -2,7 +2,7 @@
 
 namespace Sunnysideup\EcommerceDashboard\Model;
 
-use ilateral\SilverStripe\Dashboard\Panels\DashboardPanel;
+use Sunnysideup\Dashboard\Panels\DashboardPanel;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Injector\Injector;
@@ -18,6 +18,11 @@ use Sunnysideup\Ecommerce\Model\Process\OrderStatusLog;
 use Sunnysideup\Ecommerce\Model\Process\OrderStep;
 use Sunnysideup\EcommerceDashboard\EcommerceDashboard;
 
+/**
+ * Class \Sunnysideup\EcommerceDashboard\Model\EcommerceDashboardPanel
+ *
+ * @property int $DaysBack
+ */
 class EcommerceDashboardPanel extends DashboardPanel
 {
     protected $template = 'Dashboard_Content';
@@ -98,10 +103,10 @@ class EcommerceDashboardPanel extends DashboardPanel
     {
         $enabled = Config::inst()->get($this->ClassName, 'enabled');
         if (is_bool($enabled)) {
-            return self::config()->enabled;
+            return $this->config()->enabled;
         }
 
-        return 'no' !== strtolower(self::config()->enabled);
+        return 'no' !== strtolower((string) self::config()->enabled);
     }
 
     /**
