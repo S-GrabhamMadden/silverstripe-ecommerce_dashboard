@@ -117,11 +117,8 @@ class EcommerceDashboardPanel extends DashboardPanel
     protected function openOrders($numberOfDaysBack = 7)
     {
         $firstStep = DataObject::get_one(OrderStep::class);
-        $submittedOrderStatusLogClassName = EcommerceConfig::get(OrderStatusLog::class, 'order_status_log_class_used_for_submitting_order');
 
         return Order::get()
-            ->LeftJoin(OrderStatusLog::class, '"Order"."ID" = "OrderStatusLog"."OrderID"')
-            ->LeftJoin($submittedOrderStatusLogClassName, '"OrderStatusLog"."ID" = "' . $submittedOrderStatusLogClassName . '"."ID"')
             ->filter(['StatusID' => $firstStep->ID])
             ->exclude(['MemberID' => $this->excludedMembers()])
         ;
@@ -134,7 +131,7 @@ class EcommerceDashboardPanel extends DashboardPanel
      */
     protected function submittedOrders($numberOfDaysBack = 0)
     {
-        $orders = Order::get_datalist_of_orders_with_submit_record();
+        $orders = Order::get_datalist_of_orders_with_submit_record(true, false, true);
 
         return $orders
             ->exclude(['MemberID' => $this->excludedMembersArray()])
@@ -149,12 +146,10 @@ class EcommerceDashboardPanel extends DashboardPanel
      */
     protected function archivedOrders($numberOfDaysBack = 0)
     {
-        $submittedOrderStatusLogClassName = EcommerceConfig::get(OrderStatusLog::class, 'order_status_log_class_used_for_submitting_order');
         $lastStep = OrderStep::last_order_step();
+        $orders = Order::get_datalist_of_orders_with_submit_record(true, false, true);
 
-        return Order::get()
-            ->LeftJoin(OrderStatusLog::class, '"Order"."ID" = "OrderStatusLog"."OrderID"')
-            ->LeftJoin($submittedOrderStatusLogClassName, '"OrderStatusLog"."ID" = "' . $submittedOrderStatusLogClassName . '"."ID"')
+        return $orders
             ->filter(['StatusID' => $lastStep->ID])
             ->exclude(['MemberID' => $this->excludedMembersArray()])
             ->where($this->daysBackWhereStatement($numberOfDaysBack))
