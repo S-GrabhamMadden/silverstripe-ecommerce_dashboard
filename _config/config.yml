@@ -10,20 +10,17 @@ SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
     - 'sunnysideup/ecommerce_dashboard: client/css/ecommercedashboard.css'
 
-SilverStripe\Admin\AdminRootController:
-  default_panel: SilverStripe\CMS\Controllers\CMSMain
-
 Sunnysideup\Ecommerce\Model\Extensions\EcommerceRole:
   admin_role_permission_codes:
     - CMS_ACCESS_Dashboard
     - CMS_ACCESS_DashboardAddPanels
     - CMS_ACCESS_DashboardConfigurePanels
     - CMS_ACCESS_DashboardDeletePanels
----
-Only:
-  moduleexists: 'grouped-cms-menu'
----
-SilverStripe\Admin\LeftAndMain:
-  menu_groups:
-    Shop:
-      - Sunnysideup\EcommerceDashboard\EcommerceDashboard
+# ---
+# Only:
+#   moduleexists: 'grouped-cms-menu'
+# ---
+# SilverStripe\Admin\LeftAndMain:
+#   menu_groups:
+#     Shop:
+#       - Sunnysideup\EcommerceDashboard\EcommerceDashboard
