@@ -24,7 +24,7 @@
   ],
   "require": {
     "sunnysideup/ecommerce": "dev-master",
-    "sunnysideup/dashboard": "dev-master",
+    "sunnysideup/dashboard": "dev-main",
     "sunnysideup/dashboardmods": "dev-master",
     "silverstripe/recipe-cms": "^4.0 || ^5.0"
   },
