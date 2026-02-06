@@ -10,7 +10,6 @@ use Sunnysideup\Ecommerce\Model\Process\OrderStep;
 
 /**
  * Class \Sunnysideup\EcommerceDashboard\Model\EcommerceDashboardPanelOrderStep
- *
  */
 class EcommerceDashboardPanelOrderStep extends EcommerceDashboardPanel
 {

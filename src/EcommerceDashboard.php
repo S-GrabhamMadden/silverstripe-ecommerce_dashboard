@@ -2,13 +2,12 @@
 
 namespace Sunnysideup\EcommerceDashboard;
 
-use Sunnysideup\Dashboard\Dashboard;
 use SilverStripe\ORM\ArrayList;
+use Sunnysideup\Dashboard\Dashboard;
 use Sunnysideup\EcommerceDashboard\Model\EcommerceDashboardPanel;
 
 /**
  * Class \Sunnysideup\EcommerceDashboard\EcommerceDashboard
- *
  */
 class EcommerceDashboard extends Dashboard
 {

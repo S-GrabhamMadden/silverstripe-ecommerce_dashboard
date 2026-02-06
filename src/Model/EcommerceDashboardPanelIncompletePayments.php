@@ -7,7 +7,6 @@ use Sunnysideup\Ecommerce\Model\Money\EcommercePayment;
 
 /**
  * Class \Sunnysideup\EcommerceDashboard\Model\EcommerceDashboardPanelIncompletePayments
- *
  */
 class EcommerceDashboardPanelIncompletePayments extends EcommerceDashboardPanel
 {
