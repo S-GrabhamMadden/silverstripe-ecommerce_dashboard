@@ -27,10 +27,8 @@ class EcommerceDashboardPanelOrderCount extends EcommerceDashboardPanel
     {
         $currencyStatement = '';
         $currency = $this->EcommerceCurrency();
-        if ($currency) {
-            if ($currency->exists()) {
-                $currencyStatement = ', in ' . $currency->Code . ', ';
-            }
+        if ($currency && $currency->exists()) {
+            $currencyStatement = ', in ' . $currency->Code . ', ';
         }
 
         return 'Orders Placed' . $currencyStatement;

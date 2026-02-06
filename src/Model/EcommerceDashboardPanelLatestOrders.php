@@ -39,10 +39,8 @@ class EcommerceDashboardPanelLatestOrders extends EcommerceDashboardPanel
     {
         $currencyStatement = '';
         $currency = $this->EcommerceCurrency();
-        if ($currency) {
-            if ($currency->exists()) {
-                $currencyStatement = ', in ' . $currency->Code . '.';
-            }
+        if ($currency && $currency->exists()) {
+            $currencyStatement = ', in ' . $currency->Code . '.';
         }
 
         return 'Last ' . ($this->NumberOfOrdersToShow ?: $this->Config()->defaults['NumberOfOrdersToShow']) . ' Orders' . $currencyStatement;

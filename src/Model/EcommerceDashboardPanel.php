@@ -160,7 +160,6 @@ class EcommerceDashboardPanel extends DashboardPanel
 
     /**
      * returns an array of member IDs that should be excluded from the dashboard.
-     * @return array
      */
     protected function excludedMembersArray(): array
     {
