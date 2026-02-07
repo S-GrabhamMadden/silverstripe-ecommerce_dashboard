@@ -32,10 +32,8 @@ class EcommerceDashboard extends Dashboard
         $panels = parent::getAvailablePanels();
         $al = ArrayList::create();
         foreach ($panels as $panel) {
-            if ($panel instanceof EcommerceDashboardPanel && $panel->registered()) {
-                if (EcommerceDashboardPanel::class !== $panel->ClassName) {
-                    $al->push($panel);
-                }
+            if ($panel instanceof EcommerceDashboardPanel && $panel->registered() && EcommerceDashboardPanel::class !== $panel->ClassName) {
+                $al->push($panel);
             }
         }
 
