@@ -23,13 +23,16 @@ use Sunnysideup\EcommerceDashboard\EcommerceDashboard;
  */
 class EcommerceDashboardPanel extends DashboardPanel
 {
+
     protected $template = 'Dashboard_Content';
 
     /**
      * @var bool Show the configure form after creating. Used for panels that require
      *           configuration in order to show data
      */
-    private static $configure_on_create = true;
+    private static bool $configure_on_create = true;
+    private static int $max_orders_for_looping = 500;
+
 
     private static $table_name = 'EcommerceDashboardPanel';
 
@@ -89,7 +92,7 @@ class EcommerceDashboardPanel extends DashboardPanel
 
     public function maxOrdersForLoop(): int
     {
-        return 500;
+        return Config::inst()->get($this->ClassName, 'max_orders_for_looping');
     }
 
     /**
