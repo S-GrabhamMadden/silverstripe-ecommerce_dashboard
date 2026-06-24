@@ -15,7 +15,7 @@ use Sunnysideup\Ecommerce\Model\Money\EcommerceCurrency;
  *
  * @property int $NumberOfOrdersToShow
  * @property int $EcommerceCurrencyID
- * @method \Sunnysideup\Ecommerce\Model\Money\EcommerceCurrency EcommerceCurrency()
+ * @method EcommerceCurrency EcommerceCurrency()
  */
 class EcommerceDashboardPanelLatestOrders extends EcommerceDashboardPanel
 {
@@ -78,6 +78,7 @@ class EcommerceDashboardPanelLatestOrders extends EcommerceDashboardPanel
                 ->filter(['CurrencyUsedID' => $this->EcommerceCurrencyID])
             ;
         }
+
         $submittedOrders = $submittedOrders->sort(['LastEdited' => 'DESC']);
         $submittedOrders = $submittedOrders
             ->limit(($this->NumberOfOrdersToShow ?: $this->Config()->defaults['NumberOfOrdersToShow']))

@@ -31,6 +31,7 @@ class EcommerceDashboardPanel extends DashboardPanel
      *           configuration in order to show data
      */
     private static bool $configure_on_create = true;
+
     private static int $max_orders_for_looping = 500;
 
 

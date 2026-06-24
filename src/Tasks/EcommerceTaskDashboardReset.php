@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sunnysideup\EcommerceDashboard\Tasks;
 
 use SilverStripe\Dev\BuildTask;
@@ -45,6 +47,7 @@ class EcommerceTaskDashboardReset extends BuildTask
             DB::alteration_message('deleting ' . $table, 'deleted');
             DB::query('DELETE FROM ' . $table . ';');
         }
+
         DB::alteration_message('------------------ END ------------------');
     }
 }

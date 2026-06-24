@@ -49,9 +49,11 @@ class EcommerceDashboardPanelOrderStep extends EcommerceDashboardPanel
                 $html .= '<li><strong>' . $orderStep->Title . '</strong>: <span>' . $count . '</span><br /><em>' . $orderStep->Description . '</em></li>';
             }
         }
+
         if (false === $done) {
             $html .= '<li>All orders have been archived</li>';
         }
+
         $html .= '<ul>';
 
         return DBField::create_field(
